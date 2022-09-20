@@ -5,7 +5,7 @@ const createPhoto = (req, res) => {
 
     //The HTTP 201 Created success status response code
     res.status(201).json({
-        succeded: true,
+        succeeded: true,
         photo,
     }); // burasıda veritabanına eklendi frontend'e geri gönderdiğimiz kısım
 };
