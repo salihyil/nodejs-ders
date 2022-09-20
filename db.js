@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const conn = () => {
+const connectDb = () => {
     mongoose
         .connect(process.env.DB_URI, {
             dbName: 'lenslight_tr',
@@ -15,4 +15,4 @@ const conn = () => {
         });
 };
 
-export default conn;
+export default connectDb;

@@ -19,6 +19,6 @@ const photoSchema = new Schema({
     },
 });
 
-const Photo = mongoose.model('Photo', photoSchema);
+const Photo = mongoose.model('Photo', photoSchema); // model ilk parametresi Collection name'dir. mongoDB'de photos olarak gözükür.
 
 export default Photo;
