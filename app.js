@@ -3,6 +3,7 @@ dotenv.config();
 import express from 'express';
 import conn from './db.js';
 import pageRoute from './routes/pageRoute.js';
+import photoRoute from './routes/photoRoute.js';
 
 const app = express();
 const port = process.env.PORT;
@@ -17,7 +18,8 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 
 //routes
-app.use(pageRoute);
+app.use('/', pageRoute);
+app.use('/photos', photoRoute);
 
 app.listen(port, () => {
     console.log(`Application  running on port: ${port}`);
