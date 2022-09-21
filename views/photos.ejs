@@ -28,19 +28,21 @@
                             <img src="images/g1.jpg" alt="Bridge" />
                             <div class="view_main">
                                 <div class="pose">
-                                    <a class="read_more" href="images/g1.jpg"
+                                    <a
+                                        class="read_more"
+                                        href="/photos/<%= photo._id %>"
                                         ><img src="images/ga.png" alt="#"
                                     /></a>
                                     <p>
                                         <%= photo.name %><br />
-                                        <%= photo.description %>
+                                        <%= photo.description.substring(0,80)+
+                                        '...' %>
                                     </p>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <% } %>
-
                     <div class="col-md-12">
                         <a class="plus_btn" href="/photos">+</a>
                     </div>

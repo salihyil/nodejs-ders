@@ -8,4 +8,6 @@ router
     .post(photoController.createPhoto)
     .get(photoController.getAllPhotos); // post isteği yapıyoruz route('/') -> /photos/  buna denk geliyor aslında
 
+router.route('/:id').get(photoController.getAPhoto);
+
 export default router;
