@@ -20,11 +20,14 @@ const createPhoto = async (req, res) => {
 const getAllPhotos = async (req, res) => {
     try {
         const photos = await Photo.find({}); //tüm photoları göstermesi için {} yazıldı.
-        res.status(200).json({
-            succeeded: true,
-            photos,
+
+        //HTTP 200 OK success status response code
+        res.status(200).render('photos', {
+            photos, // photos.ejs'e göndericek tüm photo'ları
+            link: 'photos', // munu_ejs'de navbarda home hep active'di onu düzeltmek için bu eklendi.
         });
     } catch (error) {
+        //HTTP 500 Internal Server Error server error response code
         res.status(500).json({
             succeeded: false,
             error,
