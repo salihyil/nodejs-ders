@@ -1,5 +1,6 @@
 import User from '../models/userModel.js';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 const createUser = async (req, res) => {
     try {
@@ -43,7 +44,10 @@ const loginUser = async (req, res) => {
 
         //eğer şifrelerin eşleşmediği kısımda
         if (same) {
-            res.status(200).send('You are loggend in');
+            res.status(200).json({
+                user,
+                token: createToken(user._id), // user._id veritabanından geliyor
+            });
         } else {
             res.status(401).json({
                 succeeded: false,
@@ -56,6 +60,14 @@ const loginUser = async (req, res) => {
             error,
         });
     }
+};
+
+const createToken = (userId) => {
+    // sign(payload: string | object | Buffer, secretOrPrivateKey: jwt.Secret, options?: jwt.SignOptions | undefined): string
+    return jwt.sign({userId}, process.env.JWT_SECRET, {
+        //token süresi 1gün
+        expiresIn: '1d',
+    });
 };
 
 export {createUser, loginUser};
