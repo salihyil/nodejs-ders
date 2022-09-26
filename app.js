@@ -6,6 +6,7 @@ import cookieParser from 'cookie-parser';
 import pageRoute from './routes/pageRoute.js';
 import photoRoute from './routes/photoRoute.js';
 import userRoute from './routes/userRoute.js';
+import {checkUser} from './middlewares/authMiddleware.js';
 
 const app = express();
 const port = process.env.PORT;
@@ -19,9 +20,10 @@ app.set('view engine', 'ejs');
 app.use(express.static('public')); //static files middleware
 app.use(express.json()); // Photo validation failed: description: Path `description` is required., name: Path `name` is required. hatasından kurtulmak için
 app.use(express.urlencoded({extended: true}));
-app.use(cookieParser()); 
+app.use(cookieParser());
 
 //routes
+app.get('*', checkUser);
 app.use('/', pageRoute);
 app.use('/photos', photoRoute);
 app.use('/users', userRoute);
