@@ -2,6 +2,7 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 import express from 'express';
 import connectDB from './db.js';
+import cookieParser from 'cookie-parser';
 import pageRoute from './routes/pageRoute.js';
 import photoRoute from './routes/photoRoute.js';
 import userRoute from './routes/userRoute.js';
@@ -18,6 +19,7 @@ app.set('view engine', 'ejs');
 app.use(express.static('public')); //static files middleware
 app.use(express.json()); // Photo validation failed: description: Path `description` is required., name: Path `name` is required. hatasından kurtulmak için
 app.use(express.urlencoded({extended: true}));
+app.use(cookieParser()); 
 
 //routes
 app.use('/', pageRoute);
