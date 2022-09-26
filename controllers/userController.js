@@ -5,12 +5,25 @@ import jwt from 'jsonwebtoken';
 const createUser = async (req, res) => {
     try {
         const user = await User.create(req.body);
-        res.redirect('/login');
+        res.status(201).json({user: user._id});
     } catch (error) {
-        res.status(500).json({
-            succeded: false,
-            error,
-        });
+        console.log('ERROR', error);
+
+        let errors2 = {};
+
+        if (error.code === 11000) {
+            errors2.email = 'The Email is already registered';
+        }
+
+        if (error.name === 'ValidationError') {
+            Object.keys(error.errors).forEach((key) => {
+                errors2[key] = error.errors[key].message;
+            });
+        }
+
+        console.log('ERRORS2:::', errors2);
+
+        res.status(400).json(errors2);
     }
 };
 
@@ -32,7 +45,7 @@ const loginUser = async (req, res) => {
         if (same) {
             const token = createToken(user._id);
             res.cookie('jwt', token, {
-                httpOnly: true, //frontend tarafından req'de bulunabilicek.
+                httpOnly: true,
                 maxAge: 1000 * 60 * 60 * 24,
             });
 
@@ -57,7 +70,7 @@ const createToken = (userId) => {
     });
 };
 
-const getDashboardPage = async (req, res) => {
+const getDashboardPage = (req, res) => {
     res.render('dashboard', {
         link: 'dashboard',
     });

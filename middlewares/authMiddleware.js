@@ -39,7 +39,7 @@ const authenticateToken = (req, res, next) => {
                 }
             });
         } else {
-            //tokne yoksa
+            //token yoksa
             res.redirect('/login');
         }
     } catch (error) {
