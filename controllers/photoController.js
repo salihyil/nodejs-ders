@@ -2,13 +2,13 @@ import Photo from '../models/photoModel.js';
 
 const createPhoto = async (req, res) => {
     try {
-        const photo = await Photo.create(req.body); // formdan gelen geri veritabanına aktarırken req.body
+        await Photo.create({
+            name: req.body.name,
+            description: req.body.description,
+            user: res.locals.user._id, 
+        });
 
-        //The HTTP 201 Created success status response code
-        res.status(201).json({
-            succeeded: true,
-            photo,
-        }); // burasıda veritabanına eklendi frontend'e geri gönderdiğimiz kısım
+        res.status(201).redirect('/users/dashboard');
     } catch (error) {
         res.status(500).json({
             succeeded: false,
