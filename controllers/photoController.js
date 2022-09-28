@@ -1,12 +1,26 @@
+import {v2 as cloudinary} from 'cloudinary';
 import Photo from '../models/photoModel.js';
+import fs from 'fs';
 
 const createPhoto = async (req, res) => {
+    // req.files.image dashboard.ejs'deki <input name="image" /> olandan geliyor.
+    const result = await cloudinary.uploader.upload(
+        req.files.image.tempFilePath,
+        {
+            use_filename: true,
+            folder: 'lenslight_tr',
+        }
+    );
+
     try {
         await Photo.create({
             name: req.body.name,
             description: req.body.description,
-            user: res.locals.user._id, 
+            user: res.locals.user._id,
+            url: result.secure_url,
         });
+
+        fs.unlinkSync(req.files.image.tempFilePath);
 
         res.status(201).redirect('/users/dashboard');
     } catch (error) {
@@ -39,7 +53,8 @@ const getAPhoto = async (req, res) => {
     try {
         const photo = await Photo.findById({
             _id: req.params.id,
-        });
+        }).populate('user');
+        //.populate('user'); <%= photo.user.username %></a çalışabilmesi için eklendi.
 
         // photo.ejs render olacak.
         res.status(200).render('photo', {

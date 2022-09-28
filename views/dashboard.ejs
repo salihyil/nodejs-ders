@@ -4,15 +4,14 @@
 <body class="main-layout inner_page">
     <!-- loader  -->
     <div class="loader_bg">
-        <div class="loader">
-            <img src="/images/loading.gif" alt="#" />
-        </div>
+        <div class="loader"><img src="/images/loading.gif" alt="#" /></div>
     </div>
     <!-- end loader -->
 
     <!-- header -->
     <%- include("partials/_menu") %>
     <!-- end header inner -->
+
     <!--  customers -->
     <div class="customers">
         <div class="container">
@@ -45,6 +44,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="row">
                 <div class="col-md-12 text_align_center">
                     <button
@@ -66,6 +66,7 @@
         </div>
     </div>
     <!-- end customers  -->
+
     <div class="gallery">
         <div class="container_with">
             <div class="row">
@@ -81,7 +82,10 @@
                     <% for (photo of photos) { %>
                     <div class="col-lg-4 col-md-6 ma_bottom30">
                         <div class="lightbox">
-                            <img src="/images/g1.jpg" alt="Bridge" />
+                            <img
+                                src="<%= photo.url %>"
+                                alt="<%= photo.name %>"
+                            />
                             <div class="view_main">
                                 <div class="pose">
                                     <a
@@ -89,18 +93,26 @@
                                         href="/photos/<%= photo._id %>"
                                         ><img src="/images/ga.png" alt="#"
                                     /></a>
-                                    <p>
-                                        <%= photo.name %><br />
-                                        <%= photo.description.substring(0,80)+
-                                        '...' %>
+                                    <h3
+                                        style="
+                                            padding-top: 10px;
+                                            padding-bottom: 10px;
+                                        "
+                                    >
+                                        <%= photo.name %>
+                                    </h3>
+                                    <p style="padding-top: 10px">
+                                        <%= photo.description.substring(0, 80)+
+                                        "..." %>
                                     </p>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <% } %>
+
                     <div class="col-md-12">
-                        <a class="plus_btn" href="/photos">+</a>
+                        <a class="plus_btn" href="gallery.html">+</a>
                     </div>
                 </div>
             </div>
@@ -150,6 +162,7 @@
                                 class="main_form"
                                 method="POST"
                                 action="/photos"
+                                enctype="multipart/form-data"
                             >
                                 <div class="row">
                                     <div class="col-md-12">
@@ -169,15 +182,18 @@
                                             rows="5"
                                         ></textarea>
                                     </div>
+
                                     <div
                                         style="margin-bottom: 20px"
                                         class="col-md-12"
                                     >
                                         <input
                                             type="file"
+                                            name="image"
                                             class="form-control-file"
                                         />
                                     </div>
+
                                     <div class="col-md-12">
                                         <div class="group_form">
                                             <button class="read_more">

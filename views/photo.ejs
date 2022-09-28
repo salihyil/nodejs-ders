@@ -19,13 +19,15 @@
                     <div class="titlepage text_align_left">
                         <h2><%= photo.name %></h2>
                         <p><%= photo.description %></p>
-                        <a class="read_more" href="/about">Read More</a>
+                        <a class="read_more" href="/users/dashboard"
+                            >Artist: <%= photo.user.username %></a
+                        >
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="about_img">
                         <figure>
-                            <img src="/images/about_img.png" alt="#" />
+                            <img src="<%= photo.url %>" alt="#" />
                         </figure>
                     </div>
                 </div>

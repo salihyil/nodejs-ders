@@ -21,6 +21,7 @@ const photoSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User', //userModel'daki User'a referans edildi.
     },
+    url: {type: String, required: true},
 });
 
 const Photo = mongoose.model('Photo', photoSchema); // model ilk parametresi Collection name'dir. mongoDB'de photos olarak gözükür.
