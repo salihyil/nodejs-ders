@@ -2,7 +2,6 @@
 File Name: style.css 
 ---------------------------------------------------------------------*/
 
-
 /*--------------------------------------------------------------------- 
 import Fonts -
 --------------------------------------------------------------------*/
@@ -14,7 +13,6 @@ import Fonts -
 /*****---------------------------------------- 1) 
  2) font-family: 'Poppins', sans-serif;
  ----------------------------------------*****/
-
 
 /*--------------------------------------------------------------------- 
 import Files 
@@ -55,11 +53,11 @@ a {
     color: #1f1f1f;
     text-decoration: none !important;
     outline: none !important;
-    -webkit-transition: all .3s ease-in-out;
-    -moz-transition: all .3s ease-in-out;
-    -ms-transition: all .3s ease-in-out;
-    -o-transition: all .3s ease-in-out;
-    transition: all .3s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
 }
 
 h1,
@@ -75,7 +73,7 @@ h6 {
     font-weight: normal;
     line-height: normal;
     color: #111111;
-    margin: 0
+    margin: 0;
 }
 
 h1 {
@@ -91,15 +89,15 @@ h3 {
 }
 
 h4 {
-    font-size: 16px
+    font-size: 16px;
 }
 
 h5 {
-    font-size: 14px
+    font-size: 14px;
 }
 
 h6 {
-    font-size: 13px
+    font-size: 13px;
 }
 
 *,
@@ -117,8 +115,8 @@ h4 a,
 h5 a,
 h6 a {
     color: #212121;
-    text-decoration: none!important;
-    opacity: 1
+    text-decoration: none !important;
+    opacity: 1;
 }
 
 button:focus {
@@ -151,11 +149,11 @@ a,
 .btn {
     text-decoration: none !important;
     outline: none !important;
-    -webkit-transition: all .3s ease-in-out;
-    -moz-transition: all .3s ease-in-out;
-    -ms-transition: all .3s ease-in-out;
-    -o-transition: all .3s ease-in-out;
-    transition: all .3s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
 }
 
 img {
@@ -163,7 +161,7 @@ img {
     height: auto;
 }
 
- :focus {
+:focus {
     outline: 0;
 }
 
@@ -185,7 +183,7 @@ img {
 
 .form-control:focus {
     border-color: #ffffff !important;
-    box-shadow: 0 0 0 .2rem rgba(255, 255, 255, .25);
+    box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.25);
 }
 
 .navbar-form input {
@@ -285,9 +283,7 @@ button {
     max-width: 100%;
 }
 
-
 /**-- heading section --**/
-
 
 /*---------------------------- preloader area ----------------------------*/
 
@@ -314,7 +310,6 @@ button {
     width: 280px;
 }
 
-
 /*-- header --*/
 
 .header-area {
@@ -332,7 +327,6 @@ button {
     text-transform: uppercase;
     display: block;
     line-height: 20px;
-
 }
 .logo a span {
     color: #f6388e;
@@ -352,7 +346,7 @@ button {
     font-size: 16px;
     display: block;
     text-decoration: none;
-    padding:0px;
+    padding: 0px;
     font-weight: normal;
     font-weight: 500;
 }
@@ -374,7 +368,6 @@ button {
 
 /* navbar regular css end */
 
-
 /* nav-toggler css start */
 
 .nav-toggler {
@@ -394,7 +387,7 @@ button {
     height: 3px;
     background-color: #363636;
     display: block;
-    transition: .3s;
+    transition: 0.3s;
 }
 
 .nav-toggler span:before {
@@ -419,9 +412,7 @@ button {
     transform: translateY(-3px) rotate(-45deg);
 }
 
-
 /* nav-toggler css start */
-
 
 /* intro-area css start */
 
@@ -433,38 +424,35 @@ button {
     color: #fff;
 }
 
-
-
-
 /* intro-area css end */
 ul.email li {
-     display: inline-block;
-     padding-right: 30px;
+    display: inline-block;
+    padding-right: 30px;
 }
-ul.email li:last-child {padding-right: 0;}
+ul.email li:last-child {
+    padding-right: 0;
+}
 ul.email li a {
-     color: #1a1b1b;
-     font-size: 17px;
+    color: #1a1b1b;
+    font-size: 17px;
 }
 
 ul.email li i {
-     color: #1a1b1b;
-     font-size: 19px;
-     ;
-     padding-left: 10px;
+    color: #1a1b1b;
+    font-size: 19px;
+    padding-left: 10px;
 }
 
 /** end header **/
 
-
 /** banner section **/
 .slider_main {
-    background: url(../images/banner.jpg) ;
+    background: url(../images/banner.jpg);
     height: 100vh;
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-        padding: 90px 0;
+    padding: 90px 0;
 }
 
 .relative {
@@ -472,7 +460,6 @@ ul.email li i {
     left: 0;
     right: 0;
     text-align: center;
-
 }
 
 .carousel-item {
@@ -489,7 +476,7 @@ ul.email li i {
 }
 .bt_fe::before {
     position: absolute;
-    content: "";
+    content: '';
     left: 0;
     top: 0;
     height: 100%;
@@ -513,7 +500,7 @@ ul.email li i {
     font-weight: bold;
     font-size: 20px;
     background: #fff;
-    color:#000;
+    color: #000;
 }
 .creative .read_more:hover {
     background: #000;
@@ -559,23 +546,20 @@ ul.email li i {
     background: #fa136f;
 }
 
-
 /** end banner section **/
-
-
 
 /** gallery **/
 
 .gallery {
-     background:#fff;
-     padding-top: 80px;
+    background: #fff;
+    padding-top: 80px;
 }
 
 .container_with {
     max-width: 1517px;
     width: 100%;
     padding: 0 15px;
-    margin:0 auto;
+    margin: 0 auto;
     display: block;
     clear: both;
 }
@@ -585,19 +569,19 @@ ul.email li i {
 }
 
 .view_main {
-     position: absolute;
-     top: 0;
-     height: 100%;
-     left: 15px;
-     right: 15px;
-     overflow: hidden;
-     display: flex;
-     justify-content: center;
-     align-items: center;
-     opacity: 0;
-     transition: ease-in all 0.5s;
-     background: #f6388ed9;
-     cursor: pointer;
+    position: absolute;
+    top: 0;
+    height: 100%;
+    left: 15px;
+    right: 15px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: ease-in all 0.5s;
+    background: #f6388ed9;
+    cursor: pointer;
 }
 
 .pose .read_more {
@@ -616,19 +600,16 @@ ul.email li i {
     padding-top: 25px;
 }
 .view_main:hover {
-     opacity: 1;
-     transition: ease-in all 0.5s;
+    opacity: 1;
+    transition: ease-in all 0.5s;
 }
-
-
 
 .tz-gallery .lightbox img {
-     position: relative;
+    position: relative;
 }
 
-
 .ma_bottom30 {
-     margin-bottom: 30px;
+    margin-bottom: 30px;
 }
 
 .tz-gallery .lightbox h3 {
@@ -640,23 +621,23 @@ ul.email li i {
 }
 
 .tz-gallery .lightbox .view_btn {
-     position: absolute;
-     top: 46%;
-     left: 0;
-     color: #000;
-     font-size: 22px;
-     z-index: 9000;
-     right: 0;
-     display: flex;
-     justify-content: center;
-     align-items: center;
-     bottom: 0;
-     margin: 0 auto;
-     width: 56px;
-     height: 56px;
-     border-radius: 60px;
-     background-color: #fff;
-     transition: ease-in all 0.5s;
+    position: absolute;
+    top: 46%;
+    left: 0;
+    color: #000;
+    font-size: 22px;
+    z-index: 9000;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    bottom: 0;
+    margin: 0 auto;
+    width: 56px;
+    height: 56px;
+    border-radius: 60px;
+    background-color: #fff;
+    transition: ease-in all 0.5s;
 }
 
 .plus_btn {
@@ -681,7 +662,6 @@ ul.email li i {
 }
 /** end gallery **/
 
-
 /** about section **/
 
 .about {
@@ -690,7 +670,6 @@ ul.email li i {
     padding-bottom: 90px;
     margin-top: 90px;
 }
-
 
 .about_img figure {
     margin: 0;
@@ -703,7 +682,6 @@ ul.email li i {
 
 .about .titlepage {
     padding-bottom: 0;
- 
 }
 .about .titlepage h2 {
     color: #fff;
@@ -714,10 +692,7 @@ ul.email li i {
     color: #fff;
 }
 
-
-/** end about section **/   
-
-
+/** end about section **/
 
 /** team section **/
 
@@ -734,7 +709,6 @@ ul.email li i {
 }
 .team_img figure {
     margin: 0;
-
 }
 .craig {
     margin: 0 23px;
@@ -746,20 +720,20 @@ ul.email li i {
     position: relative;
 }
 .craig h3 {
-    color:#1e1e1e;
+    color: #1e1e1e;
     font-weight: bold;
     font-size: 30px;
     line-height: 30px;
     text-transform: uppercase;
 }
 .craig span {
-    color:#f6388e;
+    color: #f6388e;
     text-transform: uppercase;
     font-size: 20px;
     line-height: 23px;
     display: block;
     padding-top: 10px;
- }
+}
 ul.social_icon {
     padding-top: 30px;
 }
@@ -779,7 +753,6 @@ ul.social_icon li a i:hover {
     transition: ease-in all 0.5s;
 }
 
-
 /** end team section **/
 /** customers **/
 .customers {
@@ -789,7 +762,6 @@ ul.social_icon li a i:hover {
 }
 
 .satteb {
-
     background: #fff;
     box-shadow: 0px 0 38px rgba(2, 3, 8, 0.13);
     padding: 80px 40px 40px 40px;
@@ -798,7 +770,7 @@ ul.social_icon li a i:hover {
     line-height: 30px;
 }
 .satteb h3 {
-    color:#353534;
+    color: #353534;
     font-weight: bold;
     font-size: 30px;
     line-height: 30px;
@@ -818,7 +790,7 @@ ul.social_icon li a i:hover {
     margin-bottom: 20px;
     width: 100%;
     height: 66px;
-    background:#fff;
+    background: #fff;
     color: #d0d0cf;
     font-size: 15px;
     font-weight: normal;
@@ -828,7 +800,7 @@ ul.social_icon li a i:hover {
 .main_form .form_cont {
     margin-bottom: 40px;
     width: 100%;
-    background:#fff;
+    background: #fff;
     color: #d0d0cf !important;
     font-size: 15px;
     font-weight: normal;
@@ -880,7 +852,9 @@ ul.menu_footer {
     text-align: center;
     margin-bottom: 75px;
 }
-ul.menu_footer li {display: inline-block;}
+ul.menu_footer li {
+    display: inline-block;
+}
 ul.menu_footer li a {
     color: #1c1c1b;
     font-size: 17px;
@@ -894,15 +868,12 @@ ul.menu_footer li a {
 ul.menu_footer li a.active {
     color: #fa3e8a;
     border-bottom: #f6388e solid 3px;
-
 }
 ul.menu_footer li a:hover {
     color: #fa3e8a;
     border-bottom: #f6388e solid 2px;
     transition: ease-in all 0.5s;
 }
-
-
 
 ul.top_infomation li {
     display: inline-block;
@@ -936,10 +907,9 @@ ul.top_infomation li a i:hover {
 .copyright {
     margin-top: 70px;
     background: #252525;
-        padding-top: 25px;
- padding-bottom: 25px;
+    padding-top: 25px;
+    padding-bottom: 25px;
 }
-
 
 .copyright p {
     color: #fff;
@@ -948,7 +918,6 @@ ul.top_infomation li a i:hover {
     text-align: left;
 
     font-weight: normal;
-   
 }
 
 .copyright a {
@@ -978,9 +947,7 @@ ul.social_icon_bottom li a i:hover {
     transition: ease-in all 0.5s;
 }
 
-
 /** end footer **/
-
 
 /**  inner page css **/
 
@@ -990,8 +957,8 @@ ul.social_icon_bottom li a i:hover {
 }
 
 .inner_page .contact,
-.inner_page .gallery, 
-.inner_page .team, 
+.inner_page .gallery,
+.inner_page .team,
 .inner_page .about {
     padding-top: 80px;
-} 
+}

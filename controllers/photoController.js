@@ -33,7 +33,14 @@ const createPhoto = async (req, res) => {
 
 const getAllPhotos = async (req, res) => {
     try {
-        const photos = await Photo.find({}); //tüm photoları göstermesi için {} yazıldı.
+        // res.locals.user varsa filtrelemeli yap yoksa tüm users fotoları göster.
+        const photos = res.locals.user
+            ? await Photo.find({user: {$ne: res.locals.user._id}})
+            : await Photo.find({});
+        res.status(200).render('photos', {
+            photos,
+            link: 'photos',
+        });
 
         //HTTP 200 OK success status response code
         res.status(200).render('photos', {
@@ -54,7 +61,8 @@ const getAPhoto = async (req, res) => {
         const photo = await Photo.findById({
             _id: req.params.id,
         }).populate('user');
-        //.populate('user'); <%= photo.user.username %></a çalışabilmesi için eklendi.
+        //Photo içindede user var. populate('user'); <%= photo.user.username %></a çalışabilmesi için eklendi.
+        //populate: doldurmak
 
         // photo.ejs render olacak.
         res.status(200).render('photo', {
