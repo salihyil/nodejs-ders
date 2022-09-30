@@ -101,12 +101,18 @@ const getAUser = async (req, res) => {
             _id: req.params.id,
         });
 
+        // local'de bulunan id  ile user'ın içindeki follewers'ların id'yi kontrol edecek.
+        const inFollowers = user.followers.some((follower) => {
+            return follower.equals(res.locals.user._id);
+        });
+
         //2:00dk hata: diğer user'ların sayfasına gidince login olanın photoları gösteriliyordu. Şimdi tıklanan userın kendi photoları göstericek.
         const photos = await Photo.find({user: user._id});
         res.status(200).render('user', {
             //user.ejs render olacak.
             user,
             photos,
+            inFollowers,
             link: 'users',
         });
     } catch (error) {
@@ -120,7 +126,7 @@ const getAUser = async (req, res) => {
 const follow = async (req, res) => {
     try {
         //burdaki user takip edilecek yada takipden çıkıcak user'dır.
-        let user = User.findByIdAndUpdate(
+        let user = await User.findByIdAndUpdate(
             {_id: req.params.id},
             {
                 $push: {followers: res.locals.user._id},
@@ -142,10 +148,8 @@ const follow = async (req, res) => {
             }
         );
 
-        res.status(200).json({
-            succeeded: true,
-            user,
-        });
+        // follow'una bastığın kişinin sayfasına yönlendir.
+        res.status(200).redirect(`/users/${req.params.id}`);
     } catch (error) {
         res.status(500).json({
             succeeded: false,
@@ -157,7 +161,7 @@ const follow = async (req, res) => {
 const unfollow = async (req, res) => {
     try {
         //burdaki user takip edilecek yada takipden çıkıcak user'dır.
-        let user = User.findByIdAndUpdate(
+        let user = await User.findByIdAndUpdate(
             {_id: req.params.id},
             {
                 $pull: {followers: res.locals.user._id},
@@ -179,10 +183,7 @@ const unfollow = async (req, res) => {
             }
         );
 
-        res.status(200).json({
-            succeeded: true,
-            user,
-        });
+        res.status(200).redirect(`/users/${req.params.id}`);
     } catch (error) {
         res.status(500).json({
             succeeded: false,
