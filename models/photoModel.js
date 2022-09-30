@@ -19,7 +19,7 @@ const photoSchema = new Schema({
     },
     user: {
         type: Schema.Types.ObjectId,
-        ref: 'User', //userModel'daki User'a referans edildi.
+        ref: 'User', //userModel'daki mongoose.model('User',..) referans edildi.
     },
     url: {type: String, required: true},
 });

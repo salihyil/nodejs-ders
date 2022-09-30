@@ -38,12 +38,6 @@ const getAllPhotos = async (req, res) => {
             ? await Photo.find({user: {$ne: res.locals.user._id}})
             : await Photo.find({});
         res.status(200).render('photos', {
-            photos,
-            link: 'photos',
-        });
-
-        //HTTP 200 OK success status response code
-        res.status(200).render('photos', {
             photos, // photos.ejs'e göndericek tüm photo'ları
             link: 'photos', // munu_ejs'de navbarda home hep active'di onu düzeltmek için bu eklendi.
         });

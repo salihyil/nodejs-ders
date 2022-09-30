@@ -69,9 +69,14 @@ const createToken = (userId) => {
 
 const getDashboardPage = async (req, res) => {
     const photos = await Photo.find({user: res.locals.user._id});
+    const user = await User.findById({_id: res.locals.user._id}).populate([
+        'followers',
+        'followings',
+    ]);
     res.render('dashboard', {
         link: 'dashboard',
         photos,
+        user,
     });
 };
 
@@ -95,7 +100,9 @@ const getAUser = async (req, res) => {
         const user = await User.findById({
             _id: req.params.id,
         });
-        const photos = await Photo.find({user: res.locals.user._id});
+
+        //2:00dk hata: diğer user'ların sayfasına gidince login olanın photoları gösteriliyordu. Şimdi tıklanan userın kendi photoları göstericek.
+        const photos = await Photo.find({user: user._id});
         res.status(200).render('user', {
             //user.ejs render olacak.
             user,
@@ -110,4 +117,86 @@ const getAUser = async (req, res) => {
     }
 };
 
-export {createUser, loginUser, getDashboardPage, getAllUsers, getAUser};
+const follow = async (req, res) => {
+    try {
+        //burdaki user takip edilecek yada takipden çıkıcak user'dır.
+        let user = User.findByIdAndUpdate(
+            {_id: req.params.id},
+            {
+                $push: {followers: res.locals.user._id},
+            },
+            {
+                //new anlamı: pushlamayı yaptıktan sonra bana yeni oluşturduğun user'ı dön.
+                new: true,
+            }
+        );
+
+        //kendimizinde güncellenmesi lazım. Takip edilen
+        user = await User.findByIdAndUpdate(
+            {_id: res.locals.user._id},
+            {
+                $push: {followings: req.params.id},
+            },
+            {
+                new: true,
+            }
+        );
+
+        res.status(200).json({
+            succeeded: true,
+            user,
+        });
+    } catch (error) {
+        res.status(500).json({
+            succeeded: false,
+            error,
+        });
+    }
+};
+
+const unfollow = async (req, res) => {
+    try {
+        //burdaki user takip edilecek yada takipden çıkıcak user'dır.
+        let user = User.findByIdAndUpdate(
+            {_id: req.params.id},
+            {
+                $pull: {followers: res.locals.user._id},
+            },
+            {
+                //new anlamı: pushlamayı yaptıktan sonra bana yeni oluşturduğun user'ı dön.
+                new: true,
+            }
+        );
+
+        //kendimizinde güncellenmesi lazım. Takip edilen
+        user = await User.findByIdAndUpdate(
+            {_id: res.locals.user._id},
+            {
+                $pull: {followings: req.params.id},
+            },
+            {
+                new: true,
+            }
+        );
+
+        res.status(200).json({
+            succeeded: true,
+            user,
+        });
+    } catch (error) {
+        res.status(500).json({
+            succeeded: false,
+            error,
+        });
+    }
+};
+
+export {
+    createUser,
+    loginUser,
+    getDashboardPage,
+    getAllUsers,
+    getAUser,
+    follow,
+    unfollow,
+};
