@@ -34,7 +34,7 @@ const loginUser = async (req, res) => {
             same = await bcrypt.compare(password, user.password);
         } else {
             return res.status(401).json({
-                succeded: false,
+                succeeded: false,
                 error: 'There is no such user',
             });
         }
@@ -49,13 +49,13 @@ const loginUser = async (req, res) => {
             res.redirect('/users/dashboard');
         } else {
             res.status(401).json({
-                succeded: false,
+                succeeded: false,
                 error: 'Paswords are not matched',
             });
         }
     } catch (error) {
         res.status(500).json({
-            succeded: false,
+            succeeded: false,
             error,
         });
     }
