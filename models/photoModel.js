@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const {Schema} = mongoose;
+const { Schema } = mongoose;
 
 const photoSchema = new Schema({
     name: {
@@ -21,8 +21,8 @@ const photoSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User', //userModel'daki mongoose.model('User',..) referans edildi.
     },
-    url: {type: String, required: true},
-    image_id: {type: String},
+    url: { type: String, required: true },
+    image_id: { type: String },
 });
 
 const Photo = mongoose.model('Photo', photoSchema); // model ilk parametresi Collection name'dir. mongoDB'de photos olarak gözükür.

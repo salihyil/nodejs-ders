@@ -50,4 +50,4 @@ const authenticateToken = (req, res, next) => {
     }
 };
 
-export {authenticateToken, checkUser};
+export { authenticateToken, checkUser };

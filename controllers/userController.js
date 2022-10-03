@@ -6,7 +6,7 @@ import Photo from '../models/photoModel.js';
 const createUser = async (req, res) => {
     try {
         const user = await User.create(req.body);
-        res.status(201).json({user: user._id});
+        res.status(201).json({ user: user._id });
     } catch (error) {
         let errors2 = {};
 
@@ -26,8 +26,8 @@ const createUser = async (req, res) => {
 
 const loginUser = async (req, res) => {
     try {
-        const {username, password} = req.body;
-        const user = await User.findOne({username});
+        const { username, password } = req.body;
+        const user = await User.findOne({ username });
         let same = false;
 
         if (user) {
@@ -62,14 +62,14 @@ const loginUser = async (req, res) => {
 };
 
 const createToken = (userId) => {
-    return jwt.sign({userId}, process.env.JWT_SECRET, {
+    return jwt.sign({ userId }, process.env.JWT_SECRET, {
         expiresIn: '1d',
     });
 };
 
 const getDashboardPage = async (req, res) => {
-    const photos = await Photo.find({user: res.locals.user._id});
-    const user = await User.findById({_id: res.locals.user._id}).populate([
+    const photos = await Photo.find({ user: res.locals.user._id });
+    const user = await User.findById({ _id: res.locals.user._id }).populate([
         'followers',
         'followings',
     ]);
@@ -82,7 +82,7 @@ const getDashboardPage = async (req, res) => {
 
 const getAllUsers = async (req, res) => {
     try {
-        const users = await User.find({_id: {$ne: res.locals.user._id}});
+        const users = await User.find({ _id: { $ne: res.locals.user._id } });
         res.render('users', {
             link: 'users',
             users,
@@ -107,7 +107,7 @@ const getAUser = async (req, res) => {
         });
 
         //2:00dk hata: diğer user'ların sayfasına gidince login olanın photoları gösteriliyordu. Şimdi tıklanan userın kendi photoları göstericek.
-        const photos = await Photo.find({user: user._id});
+        const photos = await Photo.find({ user: user._id });
         res.status(200).render('user', {
             //user.ejs render olacak.
             user,
@@ -127,9 +127,9 @@ const follow = async (req, res) => {
     try {
         //burdaki user takip edilecek yada takipden çıkıcak user'dır.
         let user = await User.findByIdAndUpdate(
-            {_id: req.params.id},
+            { _id: req.params.id },
             {
-                $push: {followers: res.locals.user._id},
+                $push: { followers: res.locals.user._id },
             },
             {
                 //new anlamı: pushlamayı yaptıktan sonra bana yeni oluşturduğun user'ı dön.
@@ -139,9 +139,9 @@ const follow = async (req, res) => {
 
         //kendimizinde güncellenmesi lazım. Takip edilen
         user = await User.findByIdAndUpdate(
-            {_id: res.locals.user._id},
+            { _id: res.locals.user._id },
             {
-                $push: {followings: req.params.id},
+                $push: { followings: req.params.id },
             },
             {
                 new: true,
@@ -162,9 +162,9 @@ const unfollow = async (req, res) => {
     try {
         //burdaki user takip edilecek yada takipden çıkıcak user'dır.
         let user = await User.findByIdAndUpdate(
-            {_id: req.params.id},
+            { _id: req.params.id },
             {
-                $pull: {followers: res.locals.user._id},
+                $pull: { followers: res.locals.user._id },
             },
             {
                 //new anlamı: pushlamayı yaptıktan sonra bana yeni oluşturduğun user'ı dön.
@@ -174,9 +174,9 @@ const unfollow = async (req, res) => {
 
         //kendimizinde güncellenmesi lazım. Takip edilen
         user = await User.findByIdAndUpdate(
-            {_id: res.locals.user._id},
+            { _id: res.locals.user._id },
             {
-                $pull: {followings: req.params.id},
+                $pull: { followings: req.params.id },
             },
             {
                 new: true,
