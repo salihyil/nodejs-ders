@@ -8,10 +8,12 @@ const createUser = async (req, res) => {
         const user = await User.create(req.body);
         res.status(201).json({ user: user._id });
     } catch (error) {
+        console.log('ERROR', error);
+
         let errors2 = {};
 
         if (error.code === 11000) {
-            errors2.username = 'The Username is already registered';
+            errors2.email = 'The Email is already registered';
         }
 
         if (error.name === 'ValidationError') {
@@ -27,14 +29,16 @@ const createUser = async (req, res) => {
 const loginUser = async (req, res) => {
     try {
         const { username, password } = req.body;
+
         const user = await User.findOne({ username });
+
         let same = false;
 
         if (user) {
             same = await bcrypt.compare(password, user.password);
         } else {
             return res.status(401).json({
-                succeeded: false,
+                succeded: false,
                 error: 'There is no such user',
             });
         }
@@ -46,18 +50,16 @@ const loginUser = async (req, res) => {
                 maxAge: 1000 * 60 * 60 * 24,
             });
 
-            res.status(201).json({
-                succeeded: true,
-            });
+            res.redirect('/users/dashboard');
         } else {
             res.status(401).json({
-                succeeded: false,
+                succeded: false,
                 error: 'Paswords are not matched',
             });
         }
     } catch (error) {
         res.status(500).json({
-            succeeded: false,
+            succeded: false,
             error,
         });
     }
@@ -72,8 +74,8 @@ const createToken = (userId) => {
 const getDashboardPage = async (req, res) => {
     const photos = await Photo.find({ user: res.locals.user._id });
     const user = await User.findById({ _id: res.locals.user._id }).populate([
-        'followers',
         'followings',
+        'followers',
     ]);
     res.render('dashboard', {
         link: 'dashboard',
@@ -85,13 +87,13 @@ const getDashboardPage = async (req, res) => {
 const getAllUsers = async (req, res) => {
     try {
         const users = await User.find({ _id: { $ne: res.locals.user._id } });
-        res.render('users', {
-            link: 'users',
+        res.status(200).render('users', {
             users,
+            link: 'users',
         });
     } catch (error) {
         res.status(500).json({
-            succeeded: false,
+            succeded: false,
             error,
         });
     }
@@ -99,96 +101,78 @@ const getAllUsers = async (req, res) => {
 
 const getAUser = async (req, res) => {
     try {
-        const user = await User.findById({
-            _id: req.params.id,
-        });
+        const user = await User.findById({ _id: req.params.id });
 
-        // local'de bulunan id  ile user'ın içindeki follewers'ların id'yi kontrol edecek.
         const inFollowers = user.followers.some((follower) => {
             return follower.equals(res.locals.user._id);
         });
 
-        //2:00dk hata: diğer user'ların sayfasına gidince login olanın photoları gösteriliyordu. Şimdi tıklanan userın kendi photoları göstericek.
         const photos = await Photo.find({ user: user._id });
         res.status(200).render('user', {
-            //user.ejs render olacak.
             user,
             photos,
-            inFollowers,
             link: 'users',
+            inFollowers,
         });
     } catch (error) {
         res.status(500).json({
-            succeeded: false,
+            succeded: false,
             error,
         });
     }
 };
 
 const follow = async (req, res) => {
+    // res.locals.user._id
     try {
-        //burdaki user takip edilecek yada takipden çıkıcak user'dır.
         let user = await User.findByIdAndUpdate(
             { _id: req.params.id },
             {
                 $push: { followers: res.locals.user._id },
             },
-            {
-                //new anlamı: pushlamayı yaptıktan sonra bana yeni oluşturduğun user'ı dön.
-                new: true,
-            }
+            { new: true }
         );
 
-        //kendimizinde güncellenmesi lazım. Takip edilen
         user = await User.findByIdAndUpdate(
             { _id: res.locals.user._id },
             {
                 $push: { followings: req.params.id },
             },
-            {
-                new: true,
-            }
+            { new: true }
         );
 
-        // follow'una bastığın kişinin sayfasına yönlendir.
         res.status(200).redirect(`/users/${req.params.id}`);
     } catch (error) {
         res.status(500).json({
-            succeeded: false,
+            succeded: false,
             error,
         });
     }
 };
 
 const unfollow = async (req, res) => {
+    // res.locals.user._id
     try {
-        //burdaki user takip edilecek yada takipden çıkıcak user'dır.
         let user = await User.findByIdAndUpdate(
             { _id: req.params.id },
             {
                 $pull: { followers: res.locals.user._id },
             },
-            {
-                //new anlamı: pushlamayı yaptıktan sonra bana yeni oluşturduğun user'ı dön.
-                new: true,
-            }
+            { new: true }
         );
 
-        //kendimizinde güncellenmesi lazım. Takip edilen
         user = await User.findByIdAndUpdate(
             { _id: res.locals.user._id },
             {
                 $pull: { followings: req.params.id },
             },
-            {
-                new: true,
-            }
+            { new: true }
         );
 
         res.status(200).redirect(`/users/${req.params.id}`);
     } catch (error) {
         res.status(500).json({
-            succeeded: false,
+            succeded: false,
             error,
         });
     }
