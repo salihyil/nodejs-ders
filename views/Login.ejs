@@ -34,6 +34,7 @@
                                     placeholder="Username"
                                     type="text"
                                     name="username"
+                                    id="username"
                                 />
                             </div>
                             <div class="col-md-12">
@@ -42,7 +43,15 @@
                                     placeholder="Password"
                                     type="password"
                                     name="password"
+                                    id="password"
                                 />
+                            </div>
+                            <div class="col-md-12">
+                                <div
+                                    style="display: none"
+                                    class="alert alert-danger"
+                                    id="msgError"
+                                ></div>
                             </div>
                             <div class="col-md-12">
                                 <div class="group_form">
@@ -56,6 +65,44 @@
         </div>
     </div>
     <!-- end contact -->
+    <script>
+        const form = document.querySelector('form');
+        const msgError = document.querySelector('#msgError');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            msgError.textContent = '';
+            msgError.style.display = 'none';
+
+            const password = form.password.value;
+            const username = form.username.value;
+
+            try {
+                const res = await fetch('users/login', {
+                    method: 'POST',
+                    body: JSON.stringify({ username, password }),
+                    headers: { 'Content-Type': 'application/json' },
+                });
+
+                console.log('res:: ', res);
+
+                const data = await res.json();
+                console.log('Login DATA', data);
+
+                if (!data.succeeded) {
+                    if (data.error) {
+                        msgError.textContent = data.error;
+                        msgError.style.display = 'block';
+                    }
+                } else {
+                    location.assign('/users/dashboard');
+                }
+            } catch (err) {
+                console.log('ERR::', err);
+            }
+        });
+    </script>
     <!-- end footer -->
     <%- include("partials/_footer") %>
 </body>
