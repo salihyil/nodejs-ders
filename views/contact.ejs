@@ -73,7 +73,7 @@
     </div>
     <!-- end contact -->
     <!-- end footer -->
-        <script>
+    <script>
         const form = document.querySelector('form');
         const sendMessage = document.querySelector('#sendMessage');
         form.addEventListener('submit', async (e) => {
@@ -88,7 +88,6 @@
                     headers: { 'Content-Type': 'application/json' },
                 });
                 const data = await res.json();
-                console.log('DATA', data);
 
                 if (data.succeeded) {
                     sendMessage.textContent =

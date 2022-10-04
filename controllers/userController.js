@@ -11,7 +11,7 @@ const createUser = async (req, res) => {
         let errors2 = {};
 
         if (error.code === 11000) {
-            errors2.email = 'The Email is already registered';
+            errors2.username = 'The Username is already registered';
         }
 
         if (error.name === 'ValidationError') {

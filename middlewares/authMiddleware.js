@@ -31,7 +31,6 @@ const authenticateToken = (req, res, next) => {
 
                 //Burda eğer token'ın verify'ında hata varsa demek. /login'e yönlendirdik.
                 if (err) {
-                    console.log('err.message', err.message);
                     res.redirect('/login');
                 } else {
                     //Hata yoksa ne yapması gerekiyosa onu yap demek.
