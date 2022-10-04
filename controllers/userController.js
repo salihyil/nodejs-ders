@@ -39,8 +39,6 @@ const loginUser = async (req, res) => {
             });
         }
 
-        console.log('same:: ', same);
-
         if (same) {
             const token = createToken(user._id);
             res.cookie('jwt', token, {
@@ -51,8 +49,6 @@ const loginUser = async (req, res) => {
             res.status(201).json({
                 succeeded: true,
             });
-
-            res.redirect('/users/dashboard');
         } else {
             res.status(401).json({
                 succeeded: false,
